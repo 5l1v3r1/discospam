@@ -1,5 +1,5 @@
 # DiscoSPAM 🤑
-DiscoSPAM is a Discord Channel Spamming &amp; Joining Tool (Multi-Tokens).
+DiscoSPAM is a Discord Channel Spamming &amp; Joining Tool (Multi-Token).
 
 # Usage 💸
 Just replace "token 1", "token 2", etc. with your desired tokens (for each file).
