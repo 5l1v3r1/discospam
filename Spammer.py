@@ -1,49 +1,29 @@
-tokens = ["token 1", "token 2", "token 3"]
+import requests, json, os, time
 
-import requests
-import json
-import os
-import time
-import colorama
+class Spammer:
+    """ Discord Message Spammer (multi-token) """
+    def __init__(spam):
+        spam.tokens = ["token 1", "token 2", "token 3"]
+        spam.message = input("Message to Send    -> ")
+        spam.channel = input("Channel ID to Spam -> ")
+        spam.amount  = input("Amount of Messages ->")
 
-from colorama import Fore as f
-colorama.init()
+        spam.servurl = f'https://discord.com/api/v9/channels/{spam.channelid}/messages'
+        spam.headers = {"authorization": token, "Content-Type": 'application/json'}
+        spam.payload = {"content": f"{spam.message}"}
 
-os.system('cls')
+    def spammer(spam) -> None:
+        for i in range(int(spam.amount)):
+            for token in spam.tokens:
+                req = requests.post(
+                    spam.servurl,
+                    headers=spam.headers,
+                    data=json.dumps(spam.payload)
+                )
+                if req.status_code != 200:
+                    print(f"[x] Error Encountered")
+                else:
+                    print(f"[{i}] Message Sent!")
 
-g = f.GREEN
-r = f.RED
-rst = f.RESET
-
-msgnumb = 10
-
-print()
-print(f'{rst}[{g}+{rst}]{g} Message Content {r}')
-msgtosend = input("  >> ")
-print()
-print(f'{rst}[{g}+{rst}]{g} Channel ID {r}')
-channelid = input("  >> ")
-print()
-
-i = 0
-j = 0
-
-while i < int(msgnumb):
-
-    if j < len(tokens):
-
-        header = {"authorization": tokens[j], "Content-Type": 'application/json'}
-        url = f'https://discord.com/api/v9/channels/{channelid}/messages'
-        payload = {"content": f"{msgtosend}"}
-        req = requests.post(url, headers=header, data=json.dumps(payload))
-		
-        if len(req.text) < 100:
-            print(f"{rst}[{r}+{rst}]{r} ERROR | RATELIMIT OR INVALID TOKEN")
-        else:
-            print(f'{rst}[{g}+{rst}]{g} MESSAGE SENT')
-        j = j + 1
-
-    elif j == len(tokens):
-        j = 0
-
-    i += 1  
+Spam = Spammer()
+Spam.spammer()
